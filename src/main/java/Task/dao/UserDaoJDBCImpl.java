@@ -3,13 +3,14 @@ package Task.dao;
 import Task.model.User;
 import Task.util.Util;
 
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    Connection connection;
+    private Connection connection;
 
     public UserDaoJDBCImpl() {
        connection = Util.getConnection();
