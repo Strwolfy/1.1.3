@@ -10,10 +10,9 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    private Connection connection;
+    private Connection connection = Util.getConnection();
 
     public UserDaoJDBCImpl() {
-       connection = Util.getConnection();
     }
 
     public void createUsersTable() {
@@ -69,6 +68,9 @@ public class UserDaoJDBCImpl implements UserDao {
             connection.rollback();
             throwables.printStackTrace();
         }
+        finally {
+            connection.setAutoCommit(true);
+        }
     }
 
     public void removeUserById(long id) throws SQLException {
@@ -85,6 +87,9 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException throwables) {
             connection.rollback();
             throwables.printStackTrace();
+        }
+        finally {
+            connection.setAutoCommit(true);
         }
         System.out.println("Пользователь c Id: " + id + " удалён");
     }
